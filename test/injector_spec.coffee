@@ -55,7 +55,6 @@ describe 'An injector', ->
     expect(named.name).to.equal 'Frank'
     expect(named.age).to.equal 44
 
-
   it 'should obey a simple singleton binding', ->
     class MyBinder extends Binder
       configure: ->
