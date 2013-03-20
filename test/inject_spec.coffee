@@ -5,9 +5,6 @@ inject    = require('inject')
 
 
 describe 'Inject', ->
-  describe 'a simple relation', ->
-    beforeEach ->
-
   it 'should inject requried fields', ->
     class MyCat
       constructor: (@likes) ->
@@ -21,7 +18,7 @@ describe 'Inject', ->
     sitter = injector.getInstance(CatSitter)
     expect(sitter.cat).to.exist
     expect(sitter.cat.name).to.equal 'Mittenslayer'
-    expect(sitter.cat.lies).to.not.exist
+    expect(sitter.cat.likes).to.not.exist
 
   it 'should pass construction fields', ->
     class MyCat
