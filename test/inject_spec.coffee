@@ -40,9 +40,9 @@ describe 'Inject', ->
       constructor: (@likes) ->
         @name = 'Mittenslayer'
 
+    injector = new Injector()
     create = ->
       class CatSitter
         cat:  inject(MyCat, 'kibble')
-
-    injector = new Injector()
-    create = -> injector.getInstance(CatSitter)
+      injector.getInstance(CatSitter)
+    expect(create).to.throw /Cannot assign arguments to a singleton/
