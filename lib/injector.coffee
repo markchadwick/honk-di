@@ -15,7 +15,7 @@ class Injector
     if @_singletons[cls] then return @_singletons[cls]
     instance = new cls(args...)
     @_populate(instance)
-    if scope is 'SINGLETON' or cls.scope is 'SINGLETON'
+    if scope?.toUpperCase?() is 'SINGLETON' or cls.scope?.toUpperCase?() is 'SINGLETON'
       @_singletons[cls] = instance
     instance
 
