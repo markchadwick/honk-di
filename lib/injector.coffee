@@ -1,5 +1,3 @@
-_ = require 'lodash'
-
 class Injector
   constructor: (@binders...) ->
     @_singletons = {}
