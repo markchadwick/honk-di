@@ -78,3 +78,8 @@ describe 'An injector', ->
     expect(inst2).to.be.an.instanceOf GrandChild
 
     expect(inst1).to.not.equal inst2
+
+  it 'should return itself when asking for an injector', ->
+    injector = new Injector()
+    injector.someNewField = 3
+    expect(injector.getInstance(Injector).someNewField).to.equal 3

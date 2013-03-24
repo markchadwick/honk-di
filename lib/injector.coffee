@@ -1,3 +1,4 @@
+_ = require 'lodash'
 
 class Injector
   constructor: (@binders...) ->
@@ -12,20 +13,27 @@ class Injector
     @_createNew(cls, undefined, args...)
 
   _createNew: (cls, scope, args...) ->
+    if cls is Injector then return this
     if @_singletons[cls] then return @_singletons[cls]
-    instance = new cls(args...)
-    @_populate(instance)
+
+    ptype = ->
+    ptype.prototype = cls.prototype
+    instance = new ptype()
+    @_injectFields(cls.prototype, instance)
+    cls.apply(instance, args)
+
     if scope?.toUpperCase?() is 'SINGLETON' or cls.scope?.toUpperCase?() is 'SINGLETON'
       @_singletons[cls] = instance
+
     instance
 
   _resolve: (cls, binding) ->
     if binding.iface is cls
       @_createNew(binding.impl, binding.iface or binding.impl)
 
-  _populate: (instance) ->
-    for k, v of instance
-      continue unless v? and v._requiresInjection_
-      instance[k] = @getInstance(v.cls, v.args...)
+  _injectFields: (ptype, instance) ->
+    for k, v of ptype
+      if v? and v._requiresInjection_
+        instance[k] = @getInstance(v.cls, v.args...)
 
 module.exports = Injector

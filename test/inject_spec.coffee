@@ -3,6 +3,10 @@ expect = require('chai').expect
 Injector  = require('injector')
 inject    = require('inject')
 
+class SomeSingleton
+  @scope: 'SINGLETON'
+  constructor: ->
+    @name = 'singleton!'
 
 describe 'Inject', ->
   it 'should inject requried fields', ->
@@ -46,3 +50,31 @@ describe 'Inject', ->
         cat:  inject(MyCat, 'kibble')
       injector.getInstance(CatSitter)
     expect(create).to.throw /Cannot assign arguments to a singleton/
+
+  it 'should resolve a parents injected fields', ->
+    class Parent
+      parentField:  inject(SomeSingleton)
+
+    class Child extends Parent
+      childField:   inject(SomeSingleton)
+
+    injector = new Injector()
+    child = injector.getInstance(Child)
+
+    expect(child.childField).to.exist
+    expect(child.parentField).to.exist
+    expect(child.childField).to.equal (child.parentField)
+
+  it 'should have injected fields in place before the constructor is called', (done) ->
+    class Constd
+      buddy: inject(SomeSingleton)
+      age: 23
+
+      constructor: ->
+        expect(@buddy).to.exist
+        expect(@buddy._requiresInjection_).to.not.exist
+        expect(@buddy.name).to.equal 'singleton!'
+        expect(@age).to.equal 23
+        done()
+
+    new Injector().getInstance(Constd)
