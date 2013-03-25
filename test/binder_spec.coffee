@@ -70,3 +70,11 @@ describe 'A binder', ->
         @bind(Singleton).inScope('INSTANCE')
     create = -> new Rescoper()
     expect(create).to.throw /Already scoped to SINGLETON/
+
+  it 'should bind a constant', ->
+    class ConstantBinder extends Binder
+      configure: ->
+        @bindConstant('frank.age').to(22)
+
+    binder = new ConstantBinder()
+    expect(binder.bindings).to.have.length 1

@@ -79,6 +79,13 @@ describe 'An injector', ->
 
     expect(inst1).to.not.equal inst2
 
+  it 'should obey a simple constant binding', ->
+    class MyBinder extends Binder
+      configure: ->
+        @bindConstant('pants').to(666)
+    injector = new Injector(new MyBinder())
+    expect(injector.getInstance('pants')).to.equal 666
+
   it 'should return itself when asking for an injector', ->
     injector = new Injector()
     injector.someNewField = 3

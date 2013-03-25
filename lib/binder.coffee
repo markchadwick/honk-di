@@ -1,6 +1,14 @@
 
 class Binding
+  matches: (proto) ->
+    throw Error('Binding.matches not implemented')
+
+  create: (defaultFactory) ->
+    defaultFactory()
+
+class ClassBinding extends Binding
   constructor: (@iface) ->
+    super()
     if @iface.scope? then @inScope(@iface.scope)
 
   to: (impl) ->
@@ -19,6 +27,19 @@ class Binding
       else throw Error("Invalid scope, '#{scope}'")
     this
 
+  matches: (cls) ->
+    cls is @iface
+
+class ConstantBinding extends Binding
+  constructor: (@name) ->
+
+  to: (@value) ->
+
+  matches: (cls) ->
+    cls is @name
+
+  create: ->
+    @value
 
 class Binder
   constructor: ->
@@ -26,7 +47,12 @@ class Binder
     @configure()
 
   bind: (iface) ->
-    binding = new Binding(iface)
+    @_bind(new ClassBinding(iface))
+
+  bindConstant: (name) ->
+    @_bind(new ConstantBinding(name))
+
+  _bind: (binding) ->
     @bindings.push(binding)
     binding
 
