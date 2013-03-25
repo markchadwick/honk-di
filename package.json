@@ -1,7 +1,7 @@
 {
   "name":     "honk-di",
   "version":  "0.0.0",
-  "main":     "./lib/index.coffee",
+  "main":     "./index.coffee",
   "dependencies": {
     "coffee-script":  "1.6.x"
   },
