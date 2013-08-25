@@ -11,6 +11,7 @@ class Injector
     @_createNew(cls, undefined, args...)
 
   _createNew: (cls, scope, args...) ->
+    console.log('Injector._createNew: Creating new', cls.name, 'in', scope)
     if cls is Injector then return this
     if @_singletons[cls] then return @_singletons[cls]
 
@@ -28,7 +29,7 @@ class Injector
   _resolve: (cls, binding) ->
     if binding.matches(cls)
       defaultFactory = =>
-        @_createNew(binding.impl, binding.iface or binding.impl)
+        @_createNew(binding.impl, binding.scope)
       binding.create(defaultFactory)
 
   _injectFields: (ptype, instance) ->
