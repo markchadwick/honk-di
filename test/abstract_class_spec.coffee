@@ -29,6 +29,11 @@ class AppBinder extends Binder
   configure: ->
     @bind(Map).to(FunMap)
 
+    # There is a bug when there are multiple bindings it can screw up
+    # implementations are resolved during a single injection cycle. This binding
+    # does nothing other that expose the bug.
+    @bindConstant('unrelated').to(666)
+
 
 describe 'Abstract classes', ->
   beforeEach ->

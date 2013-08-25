@@ -4,8 +4,9 @@ class Injector
 
   getInstance: (cls, args...) ->
     for binder in @binders
-      binding = @_resolve(cls, binding) for binding in binder.bindings
-      if binding? then return binding
+      for binding in binder.bindings
+        instance = @_resolve(cls, binding)
+        if instance? then return instance
 
     unless cls.prototype? then throw Error('Could not resolve')
     @_createNew(cls, undefined, args...)
