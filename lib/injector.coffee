@@ -1,6 +1,8 @@
+ClassMap = require './class_map'
+
 class Injector
   constructor: (@binders...) ->
-    @_singletons = {}
+    @_singletons = new ClassMap()
 
   getInstance: (cls, args...) ->
     for binder in @binders
@@ -13,7 +15,8 @@ class Injector
 
   _createNew: (cls, scope, args...) ->
     if cls is Injector then return this
-    if @_singletons[cls] then return @_singletons[cls]
+    singleton = @_singletons.get(cls)
+    if singleton? then return singleton
 
     ptype = ->
     ptype.prototype = cls.prototype
@@ -22,7 +25,7 @@ class Injector
     cls.apply(instance, args)
 
     if scope?.toUpperCase?() is 'SINGLETON' or cls.scope?.toUpperCase?() is 'SINGLETON'
-      @_singletons[cls] = instance
+      @_singletons.set(cls, instance)
 
     instance
 
