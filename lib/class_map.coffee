@@ -5,7 +5,7 @@ classMapId = 0
 # class (ie: its name and constructor) are cast to a string, which may conflict.
 class ClassMap
   constructor: ->
-    @_nextId  = 0
+    @_nextId  = 1
     @_classes = {}
     @_field   = "_honk_clsid_#{classMapId++}"
 
@@ -13,7 +13,7 @@ class ClassMap
     @_classes[cls[@_field]]
 
   set: (cls, instance) ->
-    cls[@_field] or= "#{@_id}-#{@_nextId++}"
+    cls[@_field] or= @_nextId++
     @_classes[cls[@_field]] = instance
 
 module.exports = ClassMap
