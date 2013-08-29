@@ -1,17 +1,29 @@
 ClassMap = require './class_map'
 
+name = (injectable) ->
+  if injectable.name? then injectable.name
+  else "'#{injectable}'"
+
 class Injector
   constructor: (@binders...) ->
     @_singletons = new ClassMap()
+    @_stack = []
 
   getInstance: (cls, args...) ->
-    for binder in @binders
-      for binding in binder.bindings
-        instance = @_resolve(cls, binding)
-        if instance? then return instance
+    @_stack.push(name(cls))
 
-    unless cls.prototype? then throw Error('Could not resolve')
-    @_createNew(cls, undefined, args...)
+    try
+      for binder in @binders
+        for binding in binder.bindings
+          instance = @_resolve(cls, binding)
+          if instance? then return instance
+
+      unless cls.prototype?
+        throw Error("Could not resolve: #{@_stack.join(' -> ')}")
+      @_createNew(cls, undefined, args...)
+
+    finally
+      @_stack.pop()
 
   _createNew: (cls, scope, args...) ->
     if cls is Injector then return this
