@@ -1,6 +1,8 @@
 
 
 inject = (cls, args...) ->
+  if cls is undefined
+    throw Error('Cannot inject undefined')
   if cls.scope?.toUpperCase() is 'SINGLETON' and args.length
     throw Error('Cannot assign arguments to a singleton')
 

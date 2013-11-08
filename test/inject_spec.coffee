@@ -78,3 +78,12 @@ describe 'Inject', ->
         done()
 
     new Injector().getInstance(Constd)
+
+  describe 'attempting to inject undefined', ->
+    it 'should give you a helpful error', ->
+      create = ->
+        class TryToInjectUndefined
+          inject undefined
+
+      expect(create).to.throw /Cannot inject undefined/
+
