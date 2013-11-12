@@ -8,6 +8,7 @@ class SomeSingleton
   constructor: ->
     @name = 'singleton!'
 
+
 describe 'Inject', ->
   it 'should inject requried fields', ->
     class MyCat
@@ -58,11 +59,12 @@ describe 'Inject', ->
     class Child extends Parent
       childField:   inject(SomeSingleton)
 
-    injector = new Injector()
-    child = injector.getInstance(Child)
+    injector  = new Injector()
+    child     = injector.getInstance(Child)
+    singleton = injector.getInstance(SomeSingleton)
 
-    expect(child.childField).to.exist
-    expect(child.parentField).to.exist
+    expect(child.parentField).to.equal singleton
+    expect(child.parentField).to.equal singleton
     expect(child.childField).to.equal (child.parentField)
 
   it 'should have injected fields in place before the constructor is called', (done) ->
