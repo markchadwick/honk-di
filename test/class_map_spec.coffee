@@ -1,6 +1,6 @@
 expect = require('chai').expect
 
-ClassMap       = require('class_map')
+ClassMap       = require('../lib/class_map')
 TestSingleton2 = require('./test_singleton')
 
 class TestSingleton

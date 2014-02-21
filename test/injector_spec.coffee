@@ -1,7 +1,7 @@
 expect = require('chai').expect
 
-Binder    = require('binder')
-Injector  = require('injector')
+Binder    = require('../lib/binder')
+Injector  = require('../lib/injector')
 
 
 class Parent

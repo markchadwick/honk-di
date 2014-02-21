@@ -1,7 +1,7 @@
 expect = require('chai').expect
 
-Injector  = require('injector')
-inject    = require('inject')
+Injector  = require('../lib/injector')
+inject    = require('../lib/inject')
 
 class SomeSingleton
   @scope: 'SINGLETON'

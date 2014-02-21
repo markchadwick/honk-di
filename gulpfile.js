@@ -1,6 +1,9 @@
+require('coffee-script').register();
+
 var gulp    = require('gulp'),
-    coffee  = require('gulp-coffee');
-    concat  = require('gulp-concat');
+    coffee  = require('gulp-coffee'),
+    mocha   = require('gulp-mocha');
+
 
 gulp.task('build', function() {
   gulp.src('./lib/**/*.coffee')
@@ -11,5 +14,12 @@ gulp.task('build', function() {
     .pipe(coffee())
     .pipe(gulp.dest('build'))
 });
+
+gulp.task('test', function() {
+  gulp.src('./test/**/*.coffee', {'read': false})
+    .pipe(mocha({
+      reporter: 'spec'
+    }))
+})
 
 gulp.task('default', ['build']);

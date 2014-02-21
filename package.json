@@ -5,14 +5,11 @@
   "dependencies": {
   },
   "devDependencies": {
-    "chai":           "1.5.0",
-    "coffee-script":  "1.6.x",
-    "honk-cake":      "0.0.x",
-    "mocha":          "1.8.1",
-
+    "chai":           "1.9.0",
+    "coffee-script":  "1.7.1",
     "gulp":           "3.5.2",
     "gulp-coffee":    "1.4.1",
-    "gulp-concat":    "2.1.x",
+    "gulp-mocha":     "0.4.1",
     "gulp-util":      "2.2.14"
   }
 }

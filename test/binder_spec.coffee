@@ -1,6 +1,6 @@
 expect = require('chai').expect
 
-Binder = require('binder')
+Binder = require('../lib/binder')
 
 
 class Parent

@@ -1,6 +1,6 @@
 expect = require('chai').expect
 
-Injector       = require('injector')
+Injector       = require('../lib/injector')
 TestSingleton2 = require('./test_singleton')
 
 class TestSingleton

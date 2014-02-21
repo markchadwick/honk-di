@@ -1,8 +1,8 @@
 expect    = require('chai').expect
 
-inject    = require('inject')
-Binder    = require('binder')
-Injector  = require('injector')
+inject    = require('../lib/inject')
+Binder    = require('../lib/binder')
+Injector  = require('../lib/injector')
 
 mapInits = 0
 funMapInits = 0
