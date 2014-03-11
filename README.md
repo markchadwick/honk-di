@@ -57,7 +57,7 @@ user.say('Jimmy')
 user.sayer === sayer
 > True
 ```
-Not how DI's managed the singleton scope of the sayer for us. If we pulled out
+Note how DI's managed the singleton scope of the sayer for us. If we pulled out
 another `User` from the injector, it would be a new instance with the same
 instance to `Sayer`
 
@@ -65,8 +65,8 @@ instance to `Sayer`
 A binder is analogous to a Guice Module. But, seeing how "module" means
 something in the ol' Node.js world, they're called binders here.
 
-Sometimes you dependencies get more complicated. Like, you may have a `MapView`
-that just an in-memory mock for your test, but uses Google Maps in the UI, and
+Sometimes your dependencies get more complicated. Like, you may have a `MapView`
+that's just an in-memory mock for your test, but uses Google Maps in the UI, and
 you're working on porting them to Leaflet. You can control this kind of malarkey
 with DI pretty well.
 
