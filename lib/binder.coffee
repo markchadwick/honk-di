@@ -8,10 +8,12 @@ class Binding
 
 class ClassBinding extends Binding
   constructor: (@iface) ->
+    if not @iface? then throw Error('Interface is undefined')
     super()
     if @iface.scope? then @inScope(@iface.scope)
 
   to: (impl) ->
+    if not impl? then throw Error('Implementation is undefined')
     if @impl? then throw Error('Already bound')
     @impl = impl
     if impl.scope? then @scope = impl.scope.toUpperCase()
