@@ -86,6 +86,20 @@ describe 'An injector', ->
     injector = new Injector(new MyBinder())
     expect(injector.getInstance('pants')).to.equal 666
 
+  it 'should be able to add new binders', ->
+    class MyBinder1 extends Binder
+      configure: ->
+
+    class MyBinder2 extends Binder
+      configure: ->
+        @bindConstant('pants').to(666)
+
+    injector = new Injector(new MyBinder1())
+    create = -> injector.getInstance('pants')
+    expect(create).to.throw /Could not resolve/
+    injector.addBinder(new MyBinder2())
+    expect(create()).to.equal 666
+
   it 'should return itself when asking for an injector', ->
     injector = new Injector()
     injector.someNewField = 3
