@@ -25,6 +25,9 @@ class Injector
     finally
       @_stack.pop()
 
+  addBinder: (binder) ->
+    @binders.push(binder)
+
   _createNew: (cls, scope, args...) ->
     if cls is Injector then return this
     singleton = @_singletons.get(cls)
@@ -36,7 +39,8 @@ class Injector
     @_injectFields(cls.prototype, instance)
     cls.apply(instance, args)
 
-    if scope?.toUpperCase?() is 'SINGLETON' or cls.scope?.toUpperCase?() is 'SINGLETON'
+    if scope?.toUpperCase?() is 'SINGLETON' or
+       cls.scope?.toUpperCase?() is 'SINGLETON'
       @_singletons.set(cls, instance)
 
     instance
@@ -51,5 +55,6 @@ class Injector
     for k, v of ptype
       if v? and v._requiresInjection_
         instance[k] = @getInstance(v.cls, v.args...)
+
 
 module.exports = Injector
