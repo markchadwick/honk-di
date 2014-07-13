@@ -74,7 +74,7 @@ with DI pretty well.
 inject = require 'honk-di'
 
 class ProductionEnv extends inject.Binder
-  configure:
+  configure: ->
     @bind(MapView).to(GoogleMapView)
     @bind(UserStore).to(MemUserStore).inScope('singleton')
     @bindConstant('api.root').to('/api/v1')
