@@ -1,22 +1,22 @@
-require('coffee-script').register();
-
 var gulp    = require('gulp'),
-    coffee  = require('gulp-coffee'),
-    mocha   = require('gulp-mocha');
+    mocha   = require('gulp-mocha')
+    ts      = require('gulp-typescript');
 
 
 gulp.task('build', function() {
-  gulp.src('./lib/**/*.coffee')
-    .pipe(coffee())
-    .pipe(gulp.dest('build/lib'))
-
-  gulp.src('./index.coffee')
-    .pipe(coffee())
-    .pipe(gulp.dest('build'))
+  var src = './src/index.ts';
+  src = './src/*.ts';
+  var tsSource = gulp.src(src)
+    .pipe(ts({
+        noImplicityAny: true,
+        out: 'index.js',
+    }));
+  return tsSource.js.pipe(gulp.dest('build'));
 });
 
 gulp.task('test', function() {
-  gulp.src('./test/**/*.coffee', {'read': false})
+  require('typescript-require');
+  gulp.src('./test/**/*.ts', {'read': false})
     .pipe(mocha({
       reporter: 'spec'
     }))

@@ -6,11 +6,12 @@
   "dependencies": {
   },
   "devDependencies": {
-    "chai":           "1.9.0",
-    "coffee-script":  "1.7.1",
-    "gulp":           "3.5.2",
-    "gulp-coffee":    "1.4.1",
-    "gulp-mocha":     "0.4.1",
-    "gulp-util":      "2.2.14"
+    "chai":               "1.9.0",
+    "gulp":               "3.9.0",
+    "gulp-typescript":    "2.8.0",
+    "mocha":              "2.2.5",
+    "tsd":                "0.6.3",
+    "typescript":         "1.5.3",
+    "typescript-require": "0.2.9"
   }
 }
