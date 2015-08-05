@@ -78,3 +78,22 @@ describe 'A binder', ->
 
     binder = new ConstantBinder()
     expect(binder.bindings).to.have.length 1
+
+  it 'should resolve match based on matching __honk_clsid', ->
+    class Class3
+      name: 'Class 3'
+
+    class Class1
+      @__honk_clsid: 'this is class one'
+
+    class Class2
+      @__honk_clsid: 'this is class one'
+
+    class TestClassEqualityBinder extends Binder
+      configure: ->
+        @bind(Class1).to(Class3)
+
+    binder = new TestClassEqualityBinder(Class3)
+    expect(binder.bindings).to.have.length 1
+    matched = binder.bindings[0].matches(Class2)
+    expect(matched).to.be.true

@@ -1,8 +1,11 @@
 {
   "name":     "honk-di",
-  "version":  "0.0.10",
+  "version":  "1.0.0",
   "files":    ["build", "build/lib"],
   "main":     "build/index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
   "dependencies": {
   },
   "devDependencies": {

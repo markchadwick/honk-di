@@ -16,4 +16,5 @@ class ClassMap
     cls[@_field] or= @_nextId++
     @_classes[cls[@_field]] = instance
 
+
 module.exports = ClassMap

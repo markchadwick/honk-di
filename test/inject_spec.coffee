@@ -88,4 +88,3 @@ describe 'Inject', ->
           inject undefined
 
       expect(create).to.throw /Cannot inject undefined/
-

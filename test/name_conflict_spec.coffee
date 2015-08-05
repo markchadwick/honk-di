@@ -3,6 +3,7 @@ expect = require('chai').expect
 Injector       = require('../lib/injector')
 TestSingleton2 = require('./test_singleton')
 
+
 class TestSingleton
   @scope: 'SINGLETON'
   name:   'Test Singleton'
