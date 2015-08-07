@@ -1,5 +1,3 @@
-
-
 inject = (cls, args...) ->
   if cls is undefined
     throw Error('Cannot inject undefined')
@@ -9,5 +7,6 @@ inject = (cls, args...) ->
   _requiresInjection_: true
   cls:  cls
   args: args
+
 
 module.exports = inject

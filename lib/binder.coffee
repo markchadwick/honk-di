@@ -1,10 +1,10 @@
-
 class Binding
   matches: (proto) ->
     throw Error('Binding.matches not implemented')
 
   create: (defaultFactory) ->
     defaultFactory()
+
 
 class ClassBinding extends Binding
   constructor: (@iface) ->
@@ -30,7 +30,12 @@ class ClassBinding extends Binding
     this
 
   matches: (cls) ->
-    cls is @iface
+    cls is @iface or @_clsIdMatches(cls)
+
+  _clsIdMatches: (cls) ->
+    id = cls.__honk_clsid
+    id? and id is @iface.__honk_clsid
+
 
 class ConstantBinding extends Binding
   constructor: (@name) ->
@@ -42,6 +47,7 @@ class ConstantBinding extends Binding
 
   create: ->
     @value
+
 
 class Binder
   constructor: ->

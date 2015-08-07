@@ -1,8 +1,10 @@
 ClassMap = require './class_map'
 
+
 name = (injectable) ->
   if injectable.name? then injectable.name
   else "'#{injectable}'"
+
 
 class Injector
   constructor: (@binders...) ->
@@ -51,5 +53,6 @@ class Injector
     for k, v of ptype
       if v? and v._requiresInjection_
         instance[k] = @getInstance(v.cls, v.args...)
+
 
 module.exports = Injector
